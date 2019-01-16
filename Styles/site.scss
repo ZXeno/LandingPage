@@ -1,9 +1,46 @@
-﻿body {
+﻿$color-textdefault: #fafafa;
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
     margin: 0;
     background: #151515;
     font-family: 'Montserrat', sans-serif;
     height: 100vh;
 }
+
+/*nav {
+    background: rgb(30, 30, 30);
+    height: 100%;
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            display: block;
+            align-content: center;
+
+            div {
+                display: block;
+                height: 60px;
+
+                a {
+                    position: relative;
+                    color: #fff;
+                    padding: 20px;
+                    display: block;
+                    align-content: center;
+                }
+
+                :hover {
+                    background-color: #313131;
+                }
+            }
+        }
+    }
+}*/
 
 #container {
     display: grid;
@@ -37,19 +74,23 @@
     position: relative;
     padding-left: 20px;
     padding-right: 20px;
-    color: #fafafa;
+    color: $color-textdefault;
     min-width: 260px;
     overflow: hidden;
 }
 
 span {
-    color: #fafafa;
+    color: $color-textdefault;
     font-size: 1.7em;
 }
 
 p {
-    color: #fafafa;
+    color: $color-textdefault;
     font-size: 1em;
+}
+
+label {
+    color: $color-textdefault;
 }
 
 .profile-image {
@@ -61,6 +102,10 @@ p {
     width: 200px;
     height: 200px;
     border-radius: 100%;
+}
+
+#bodyTextBox{
+    height: 400px;
 }
 
 #footer {

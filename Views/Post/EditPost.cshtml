@@ -1,0 +1,27 @@
+﻿@model PostModel
+
+@{ }
+
+<div class="container">
+    <div class="row">
+        @if (Model.IsNewPost)
+        {
+            <h2>New Post</h2>
+        }
+        else
+        {
+            <h2>Edit Post</h2>
+        }
+    </div>
+    <form asp-controller="Post" asp-action="@if (Model.IsNewPost) { <text>NewPost</text> } else { <text>EditPost</text> }" method="post">
+        <div class="form-group">
+            <label for="titleTextBox">Title</label>
+            <input asp-for="Title" id="titleTextBox" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label class="" for="bodyTextBox">Body</label>
+            <textarea asp-for="Body" id="bodyTextBox" class="form-control"></textarea>
+        </div>
+        <input class="btn btn-primary" type="submit" value="submit" />
+    </form>
+</div>
