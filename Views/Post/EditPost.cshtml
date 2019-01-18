@@ -1,6 +1,15 @@
 ﻿@model PostModel
 
-@{ }
+@{
+    if (Model.IsNewPost)
+    {
+        ViewData["FormAction"] = "NewPost";
+    }
+    else
+    {
+        ViewData["FormAction"] = "EditPost";
+    }
+}
 
 <div class="container">
     <div class="row">
@@ -13,7 +22,7 @@
             <h2>Edit Post</h2>
         }
     </div>
-    <form asp-controller="Post" asp-action="@if (Model.IsNewPost) { <text>NewPost</text> } else { <text>EditPost</text> }" method="post">
+    <form asp-controller="Post" asp-action="@ViewData["FormAction"]" method="post">
         <div class="form-group">
             <label for="titleTextBox">Title</label>
             <input asp-for="Title" id="titleTextBox" class="form-control" />
@@ -22,6 +31,7 @@
             <label class="" for="bodyTextBox">Body</label>
             <textarea asp-for="Body" id="bodyTextBox" class="form-control"></textarea>
         </div>
-        <input class="btn btn-primary" type="submit" value="submit" />
+        <input class="btn btn-primary" type="submit" value="submit" /> &nbsp;
+        <a class="btn btn-secondary" asp-action="Index">Cancel</a>
     </form>
 </div>

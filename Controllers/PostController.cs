@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using LandingPage.DataLayer.Repository;
 using LandingPage.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +8,18 @@ namespace LandingPage.Controllers
 {
     public class PostController : Controller
     {
+        private IRepository repo;
+
+        public PostController(IRepository repo)
+        {
+            this.repo = repo;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            List<PostModel> posts = repo.GetAllPosts();
+
+            return View(posts);
         }
 
         [HttpGet]
@@ -21,27 +29,33 @@ namespace LandingPage.Controllers
         }
 
         [HttpPost]
-        public IActionResult NewPost(PostModel post)
+        public async Task<IActionResult> NewPost(PostModel post)
         {
+            repo.AddPost(post);
+            await repo.SaveChangesAsync();
+
             return RedirectToAction("Index", "Dashboard");
         }
 
         [HttpGet]
-        public IActionResult EditPost()
+        public IActionResult EditPost(int? id)
         {
-            // For testing purposes only
-            PostModel existingPost = new PostModel() 
+            if (id == null)
             {
-                Title = "Test Title",
-                Body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            };
+                return View(new PostModel());
+            }
+
+            PostModel existingPost = repo.GetPost((int)id);
             return View(existingPost);
         }
 
         [HttpPost]
-        public IActionResult EditPost(PostModel post)
+        public async Task<IActionResult> EditPost(PostModel post)
         {
-            return RedirectToAction("Index", "Dashboard");
+            repo.UpdatePost(post);
+            await repo.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
     }
 }
