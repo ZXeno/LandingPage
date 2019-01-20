@@ -7,6 +7,7 @@ body {
     background: #151515;
     font-family: 'Montserrat', sans-serif;
     height: 100vh;
+    color: $color-textdefault;
 }
 
 /*nav {
@@ -116,4 +117,13 @@ label {
     padding: 4px;
     bottom: 4px;
     color: #8a8a8a;
+}
+
+.spaced-row {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.show-bottom-border{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
 }

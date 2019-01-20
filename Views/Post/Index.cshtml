@@ -9,21 +9,21 @@
     <div class="row">
         <a class="btn btn-success" asp-action="NewPost">+ New Post</a>
     </div>
-    <div class="row">
-        <ul class="list-group">
-            @foreach (PostModel post in Model)
-            {
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="col col-sm-6">
-                    <label>@post.Title</label>
-                </div>
+
+    @foreach (PostModel post in Model)
+    {
+        <div class="row spaced-row show-bottom-border">
+            <div class="col-xs-12 col-sm-6 col-md-8">
+                @post.Title
+            </div>
+            <div class="col-xs-6 col-md-4">
                 <div class="btn-group">
-                    <a asp-action="EditPost" asp-route-id="@post.Id" class="btn btn-sm btn-info"><div class="glyphicon glyphicon-pencil"></div></a>
-                    <a asp-action="DeletePost" asp-route-id="@post.Id" class="btn btn-sm btn-danger"><div class="glyphicon glyphicon-trash"></div></a>
+                    <a asp-action="EditPost" asp-route-id="@post.Id" class="btn btn-xs btn-info"><text class="glyphicon glyphicon-pencil"></text></a>
+                    <a asp-action="DeletePost" asp-route-id="@post.Id" class="btn btn-xs btn-danger"><text class="glyphicon glyphicon-trash"></text></a>
                 </div>
-            </li>
-            }
-        </ul>
-    </div>
+            </div>
+        </div>
+    }
+
 </div>
 
