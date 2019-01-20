@@ -8,20 +8,22 @@
 <div class="container">
     <div class="row">
         <a class="btn btn-success" asp-action="NewPost">+ New Post</a>
-    </div><br />
-    @foreach (PostModel post in Model)
-    {
-        <div class="row justify-content-md-center">
-            <div class="col col-sm-6">
-                <p>@post.Title</p>
-            </div>
-            <div class="col">
+    </div>
+    <div class="row">
+        <ul class="list-group">
+            @foreach (PostModel post in Model)
+            {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="col col-sm-6">
+                    <label>@post.Title</label>
+                </div>
                 <div class="btn-group">
                     <a asp-action="EditPost" asp-route-id="@post.Id" class="btn btn-sm btn-info"><div class="glyphicon glyphicon-pencil"></div></a>
                     <a asp-action="DeletePost" asp-route-id="@post.Id" class="btn btn-sm btn-danger"><div class="glyphicon glyphicon-trash"></div></a>
                 </div>
-            </div>
-        </div>
-    }
+            </li>
+            }
+        </ul>
+    </div>
 </div>
 

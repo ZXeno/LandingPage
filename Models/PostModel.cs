@@ -7,8 +7,6 @@ namespace LandingPage.Models
     {
         public int Id { get; set; }
 
-        public bool IsNewPost { get; set; }
-
         public DateTime CreatedDateTime { get; set; } = DateTime.Now;
 
         public DateTime EditedDateTime { get; set; }

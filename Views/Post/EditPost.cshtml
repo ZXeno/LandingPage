@@ -1,26 +1,22 @@
 ﻿@model PostModel
 
 @{
-    if (Model.IsNewPost)
+    string pageTitle = string.Empty;
+    if (Model.Id == 0)
     {
         ViewData["FormAction"] = "NewPost";
+        pageTitle = "New Post";
     }
     else
     {
         ViewData["FormAction"] = "EditPost";
+        pageTitle = "Edit Post";
     }
 }
 
 <div class="container">
     <div class="row">
-        @if (Model.IsNewPost)
-        {
-            <h2>New Post</h2>
-        }
-        else
-        {
-            <h2>Edit Post</h2>
-        }
+        <h2>@pageTitle</h2>
     </div>
     <form asp-controller="Post" asp-action="@ViewData["FormAction"]" method="post">
         <div class="form-group">

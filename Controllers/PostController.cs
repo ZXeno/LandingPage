@@ -25,7 +25,7 @@ namespace LandingPage.Controllers
         [HttpGet]
         public IActionResult NewPost()
         {
-            return View("EditPost", new PostModel(){ IsNewPost = true });
+            return View("EditPost", new PostModel());
         }
 
         [HttpPost]
@@ -53,6 +53,20 @@ namespace LandingPage.Controllers
         public async Task<IActionResult> EditPost(PostModel post)
         {
             repo.UpdatePost(post);
+            await repo.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeletePost(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            repo.RemovePost((int)id);
             await repo.SaveChangesAsync();
 
             return RedirectToAction("Index");
