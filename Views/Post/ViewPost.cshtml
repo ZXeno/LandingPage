@@ -1,0 +1,23 @@
+﻿@model PostModel
+
+@{
+    ViewData["Title"] = "ViewPost";
+    string formattedCreatedDateTime = $"{Model.CreatedDateTime.ToShortDateString()} {Model.CreatedDateTime.ToShortTimeString()}";
+    string editedTime = string.Empty;
+    if (Model.EditedDateTime != null && Model.EditedDateTime != DateTime.MinValue)
+    {
+        editedTime = $", Last edited: {Model.EditedDateTime.ToShortDateString()} {Model.EditedDateTime.ToShortTimeString()}";
+    }
+}
+
+<div class="container">
+    <div class="col-md-12">
+        <h1>@Model.Title</h1>
+        <h6>Created: @formattedCreatedDateTime @editedTime <a asp-action="EditPost" asp-route-id="@Model.Id" class="btn btn-xs btn-link"><text class="glyphicon glyphicon-pencil"></text></a><br /></h6>
+        <hr />
+        <div>
+            <p>@Html.Raw(StringHelper.HtmlFormattedString(Model.Body))</p>
+        </div>
+    </div>
+</div>
+

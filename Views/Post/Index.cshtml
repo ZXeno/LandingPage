@@ -14,7 +14,7 @@
     {
         <div class="row spaced-row show-bottom-border">
             <div class="col-xs-12 col-sm-6 col-md-8">
-                @post.Title
+                <a asp-action="ViewPost" asp-route-id="@post.Id" class="btn btn-link">@post.Title</a>
             </div>
             <div class="col-xs-6 col-md-4">
                 <div class="btn-group">

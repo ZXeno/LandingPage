@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using LandingPage.DataLayer.Repository;
 using LandingPage.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LandingPage.Controllers
 {
+    [Authorize]
     public class PostController : Controller
     {
         private IRepository repo;
@@ -52,6 +55,7 @@ namespace LandingPage.Controllers
         [HttpPost]
         public async Task<IActionResult> EditPost(PostModel post)
         {
+            post.EditedDateTime = DateTime.Now;
             repo.UpdatePost(post);
             await repo.SaveChangesAsync();
 
@@ -70,6 +74,17 @@ namespace LandingPage.Controllers
             await repo.SaveChangesAsync();
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult ViewPost(int? id)
+        {
+            if (id == null)
+            {
+                return NewPost();
+            }
+
+            return View(repo.GetPost((int)id));
         }
     }
 }
