@@ -1,21 +1,47 @@
-﻿@{
+﻿@model HomeViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="profile-content">
-    <div class="img-container">
-        <img id="profile-image" src="/assets/profile.png" alt="">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="profile-content vertical-center">
+                <div class="col-sm-3">
+                    <img class="profile-image" src="@Model.ProfilePicturePath" alt="">
+                </div>
+                <div class="col-sm-8">
+                    <div class="headerContent">
+                        <span>&nbsp;&nbsp;@Model.ProfileName</span>
+                        <p>@Model.DescriptionBlurb</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="headerContent">
-        <span>&nbsp;&nbsp;Jonathan Cain</span>
-        <p>
-            Software developer, passionate learner,
-            solutions engineer, nerd, self-motivated, and
-            enthusiastic about software and game development.
-            I build tools and simple games, learn everything
-            I can, and always look for great opportunities to
-            do something interesting. Dad to one and variety
-            gamer in my spare time. Occasionally stream on Twitch.
-        </p>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            @foreach (PostModel post in Model.PaginatedPosts)
+            {
+                string postMetaDataString = $"Created: {post.CreatedDateTime.ToShortDateString()} {post.CreatedDateTime.ToShortTimeString()}";
+                if (post.EditedDateTime != null && post.EditedDateTime != DateTime.MinValue)
+                {
+                    postMetaDataString += $", Last edited: {post.EditedDateTime.ToShortDateString()} {post.EditedDateTime.ToShortTimeString()}";
+                }
+
+                <div class="blog-post">
+                    <h2 class="blog-post-title">@post.Title</h2>
+                    <p class="blog-post-metadata">@postMetaDataString</p>
+                    <div class="blog-post-content">
+                        <p>@Html.Raw(StringHelper.HtmlFormattedString(post.Body))</p>
+                        <hr class="blog-post-endLine"/>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
 </div>

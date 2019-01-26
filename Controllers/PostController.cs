@@ -37,7 +37,7 @@ namespace LandingPage.Controllers
             repo.AddPost(post);
             await repo.SaveChangesAsync();
 
-            return RedirectToAction("Index", "Dashboard");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
