@@ -1,0 +1,26 @@
+﻿<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!--<a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">LandingPage</a>-->
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home fa-lg"></i><i class="visible-xs-inline">&nbsp;Home</i></a></li>
+                <li><a href="https://github.com/ZXeno" target="blank_"><i class="fab fa-github fa-lg"></i><i class="visible-xs-inline">&nbsp;Github</i></a></li>
+                <li><a href="https://www.twitch.tv/zxeno" target="blank_"><i class="fab fa-twitch fa-lg"></i><i class="visible-xs-inline">&nbsp;Twitch</i></a></li>
+                <li><a href="https://twitter.com/ZXeno" target="blank_"><i class="fab fa-twitter fa-lg"></i><i class="visible-xs-inline">&nbsp;Twitter</i></a></li>
+                <li><a href="https://www.linkedin.com/in/jonathan-cain-14458b9/" target="blank_"><i class="fab fa-linkedin fa-lg"></i><i class="visible-xs-inline">&nbsp;LinkedIn</i></a></li>
+                <li><a href="https://www.instagram.com/zxeno_actual/" target="blank_"><i class="fab fa-instagram fa-lg"></i><i class="visible-xs-inline">&nbsp;Instagram</i></a></li>
+                <li><a href="https://steamcommunity.com/id/zxeno" target="blank_"><i class="fab fa-steam fa-lg"></i><i class="visible-xs-inline">&nbsp;Steam</i></a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="Contact"><i class="far fa-envelope fa-lg"></i><i class="visible-xs-inline">&nbsp;Contact</i></a></li>
+            </ul>
+            <partial name="_LoginPartial" />
+        </div>
+    </div>
+</nav>

@@ -11,39 +11,6 @@ body {
     color: $color-textdefault;
 }
 
-/*nav {
-    background: rgb(30, 30, 30);
-    height: 100%;
-
-    ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-
-        li {
-            display: block;
-            align-content: center;
-
-            div {
-                display: block;
-                height: 60px;
-
-                a {
-                    position: relative;
-                    color: #fff;
-                    padding: 20px;
-                    display: block;
-                    align-content: center;
-                }
-
-                :hover {
-                    background-color: #313131;
-                }
-            }
-        }
-    }
-}*/
-
 #container {
     display: grid;
     grid-template-columns: 70px auto;

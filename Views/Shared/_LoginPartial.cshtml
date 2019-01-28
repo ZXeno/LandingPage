@@ -3,16 +3,16 @@
 @if (User.Identity.IsAuthenticated)
 {
     var identity = User.Identity as ClaimsIdentity; // Azure AD V2 endpoint specific
-    string preferred_username = identity.Claims.FirstOrDefault(c => c.Type == "preferred_username")?.Value;
-    <ul class="nav navbar-nav navbar-right">
-        <li class="navbar-text">Hello @preferred_username!</li>
-        <li><a asp-area="AzureAD" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
-        <li><a asp-area="AzureAD" asp-controller="Account" asp-action="SignOut">Sign out</a></li>
-    </ul>
+    string preferred_username = identity.Claims.FirstOrDefault(c => c.Type == "name")?.Value;
+<ul class="nav navbar-nav navbar-right">
+    <li class="navbar-text">Hello @preferred_username!</li>
+    <li><a asp-area="AzureAD" asp-controller="Dashboard" asp-action="Index"><i class="fas fa-tachometer-alt fa-lg"></i><i class="visible-xs-inline">&nbsp;Dashboard</i></a></li>
+    <li><a asp-area="AzureAD" asp-controller="Account" asp-action="SignOut"><i class="fas fa-sign-out-alt fa-lg"></i><i class="visible-xs-inline">&nbsp;Sign-out</i></a></li>
+</ul>
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li><a asp-area="AzureAD" asp-controller="Account" asp-action="SignIn">Sign in</a></li>
+        <li><a asp-area="AzureAD" asp-controller="Account" asp-action="SignIn"><i class="fas fa-sign-in-alt fa-lg"></i><i class="visible-xs-inline">&nbsp;Sign-in</i></a></li>
     </ul>
 }
