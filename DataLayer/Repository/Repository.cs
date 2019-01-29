@@ -41,6 +41,28 @@ namespace LandingPage.DataLayer.Repository
             context.Posts.Update(post);
         }
 
+        public ProfileModel GetProfile()
+        {
+            ProfileModel profile = context.ProfileData.FirstOrDefault();
+
+            if (profile == null)
+            {
+                profile = new ProfileModel()
+                {
+                    ID = 0,
+                    ProfileName = "New_User",
+                    DescriptionBlurb = "About-Me text."
+                };
+            }
+
+            return profile;
+        }
+
+        public void UpdateProfile(ProfileModel profileData)
+        {
+            context.ProfileData.Update(profileData);
+        }
+
         public async Task<bool> SaveChangesAsync()
         {
             if (await context.SaveChangesAsync() > 0)

@@ -17,5 +17,7 @@ namespace LandingPage.DataLayer
         }
 
         public DbSet<PostModel> Posts { get; set;}
+
+        public DbSet<ProfileModel> ProfileData { get; set; }
     }
 }

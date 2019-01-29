@@ -1,12 +1,55 @@
-﻿
+﻿@model DashboardViewModel
+
 @{
     ViewData["Title"] = "Dashboard";
 }
 
 <h2>Dashboard</h2>
 <div class="container">
-    <div class="row">
-        <p>Dashboard content goes here.</p>
-        <a class="btn btn-primary" asp-controller="Post" asp-action="Index">Manage Blog</a>
+    <div class="container-fluid dashboard-section">
+        <div class="row">
+            <form asp-controller="Dashboard" asp-action="ChangeProfile" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-1">
+                            <label>Name:</label>
+                        </div>
+                        <div class="col-xs-8 col-sm-6 col-md-6">
+                            <input class="form-control form-inline" asp-for="ProfileName" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row spaced-row">
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label>About blurb:</label>
+                            <textarea class="form-control form-inline" asp-for="DescriptionBlurb"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row spaced-row">
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label>Change Profile Picture:</label>
+                            <input asp-for="ProfilePicture" />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row spaced-row">
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input class="btn btn-primary" type="submit" value="Save Changes" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br /><br />
+    <div class="container dashboard-section">
+        <div class="row">
+            <a class="btn btn-primary" asp-controller="Post" asp-action="Index">Manage Blog</a>
+        </div>
     </div>
 </div>

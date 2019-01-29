@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using LandingPage.Models;
 using LandingPage.DataLayer.Repository;
+using Microsoft.Extensions.Configuration;
 
 namespace LandingPage.Controllers
 {
@@ -14,20 +11,23 @@ namespace LandingPage.Controllers
     public class HomeController : Controller
     {
         private IRepository repo;
+        private IConfiguration config;
 
-        public HomeController(IRepository repo)
+        public HomeController(IRepository repo, IConfiguration configuration)
         {
             this.repo = repo;
+            this.config = configuration;
         }
-
 
         public IActionResult Index()
         {
+            ProfileModel profile = repo.GetProfile();
+
             HomeViewModel viewModel = new HomeViewModel()
             {
-                ProfileName = "Jonathan Cain",
-                ProfilePicturePath = "/assets/profile.png",
-                DescriptionBlurb = "Enthusiastic software developer, passionate learner, solutions engineer, nerd, self-motivated, and father to one amazing son. I build tools and simple games, learn everything I can, and always look for great opportunities to do something interesting. Very much a DIY/maker type and variety gamer in my spare time.",
+                ProfileName = profile.ProfileName,
+                ProfilePicturePath = config["Path:ProfilePicture"],
+                DescriptionBlurb = profile.DescriptionBlurb,
                 PaginatedPosts = repo.GetAllPosts()
             };
 
@@ -37,7 +37,7 @@ namespace LandingPage.Controllers
         public IActionResult Contact()
         {
             // Todo: replace
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = config["ContactPageStaticData:PageMessage"];
 
             return View();
         }

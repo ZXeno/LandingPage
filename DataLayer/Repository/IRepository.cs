@@ -1,8 +1,5 @@
 ﻿using LandingPage.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace LandingPage.DataLayer.Repository
@@ -14,6 +11,10 @@ namespace LandingPage.DataLayer.Repository
         void AddPost(PostModel post);
         void UpdatePost(PostModel post);
         void RemovePost(int id);
+
+        ProfileModel GetProfile();
+        void UpdateProfile(ProfileModel profileData);
+
         Task<bool> SaveChangesAsync();
     }
 }
