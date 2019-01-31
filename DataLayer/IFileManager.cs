@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,6 +9,9 @@ namespace LandingPage.DataLayer
 {
     public interface IFileManager
     {
+
+        FileStream ImageStream(string image);
+
         /// <summary>
         /// Uploads and replaces the existing profile image.
         /// </summary>

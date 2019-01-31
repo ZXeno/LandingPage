@@ -19,6 +19,11 @@ namespace LandingPage.DataLayer
             this.profileImagePath = "wwwroot" + config["Path:ProfilePicture"];
         }
 
+        public FileStream ImageStream(string image)
+        {
+            return new FileStream(Path.Combine(uploadImagePath, image), FileMode.Open, FileAccess.Read);
+        }
+
         public async Task<string> SaveProfileImage(IFormFile image)
         {
             string profileDirectoryPath = Path.GetDirectoryName(profileImagePath);

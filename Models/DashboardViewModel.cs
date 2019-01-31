@@ -9,8 +9,10 @@ namespace LandingPage.Models
 {
     public class DashboardViewModel
     {
+        public int ProfileId { get; set; }
         public string ProfileName { get; set; }
         public string DescriptionBlurb { get; set; }
         public IFormFile ProfilePicture { get; set; }
+        public string ResponseMessage { get; set; }
     }
 }

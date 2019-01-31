@@ -2,53 +2,70 @@
 
 @{
     ViewData["Title"] = "Dashboard";
+    string responseMessage = Model.ResponseMessage;
+    int profileId = Model.ProfileId;
 }
 
 <h2>Dashboard</h2>
 <div class="container">
-    <div class="container-fluid dashboard-section">
-        <div class="row">
+    <div class="container-fluid">
+        <div class="row dashboard-section">
             <form asp-controller="Dashboard" asp-action="ChangeProfile" method="post" enctype="multipart/form-data">
+                <div class="row space-row-bottom">
+                    <div class="col-xs-4 dashboard-profile-img">
+                        <img class="img-circle" src="~/assets/profile.png" width="150" />
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-6">
+                        <div class="form-group">
+                            <input type="hidden" asp-for="ProfileId" />
+                            <label for="ProfileName">Display Name</label>
+                            <input name="ProfileName" class="form-control form-inline" asp-for="ProfileName" />
+                        </div>
+                        <div class="form-group">
+                            <label for="pic">Change Profile Picture:</label>
+                            <input id="pic" asp-for="ProfilePicture" accept="image/*" />
+                            <h6>Accepts: JPG/JPEG, PNG, GIF</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row space-row-top">
+                    <div class="col-xs-12 form-group">
+                        <label for="dashboard-editor-container">About blurb:</label>
+                        <textarea id="about" class="form-control form-inline" asp-for="DescriptionBlurb"></textarea>
+                    </div>
+                </div>
                 <div class="row">
-                    <div class="form-group">
-                        <div class="col-xs-1">
-                            <label>Name:</label>
-                        </div>
-                        <div class="col-xs-8 col-sm-6 col-md-6">
-                            <input class="form-control form-inline" asp-for="ProfileName" />
-                        </div>
-                    </div>
-                </div>
-                <div class="row spaced-row">
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <label>About blurb:</label>
-                            <textarea class="form-control form-inline" asp-for="DescriptionBlurb"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="row spaced-row">
-                    <div class="form-group">
-                        <div class="col-xs-12 col-sm-6 col-md-6">
-                            <label>Change Profile Picture:</label>
-                            <input asp-for="ProfilePicture" />
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row spaced-row">
-                    <div class="form-group">
-                        <div class="col-xs-12">
+                    <div class="col-xs-12">
+                        <div class="form-group">
                             <input class="btn btn-primary" type="submit" value="Save Changes" />
                         </div>
                     </div>
                 </div>
             </form>
+            @if (!string.IsNullOrWhiteSpace(responseMessage))
+            {
+                <div class="row">
+                    <div class="col-xs-12">
+                        @if (responseMessage == "Profile saved.")
+                        {
+                            <div class="alert alert-info">
+                                @Html.Raw(responseMessage)
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-danger">
+                                @Html.Raw(responseMessage)
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
         </div>
     </div>
-    <br /><br />
-    <div class="container dashboard-section">
-        <div class="row">
+    <br />
+    <div class="container-fluid">
+        <div class="row dashboard-section">
             <a class="btn btn-primary" asp-controller="Post" asp-action="Index">Manage Blog</a>
         </div>
     </div>

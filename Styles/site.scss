@@ -21,9 +21,19 @@ body {
     }
 }
 
+.dashboard-profile-img {
+    max-width: 200px;
+    min-width: 190px;
+}
+
 .dashboard-section {
     background-color: rgba(0, 0, 0, 0.45);
     border-radius: 6px;
+    padding: 20px;
+}
+
+#dashboard-editor-container {
+    height: 130px;
 }
 
 .profile-content {
@@ -78,6 +88,14 @@ label {
 
 .spaced-row {
     padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.space-row-top {
+    padding-top: 8px;
+}
+
+.space-row-bottom {
     padding-bottom: 8px;
 }
 

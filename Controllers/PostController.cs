@@ -53,6 +53,7 @@ namespace LandingPage.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPost(PostModel post)
         {
             post.EditedDateTime = DateTime.Now;

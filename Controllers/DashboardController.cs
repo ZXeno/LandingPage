@@ -5,6 +5,7 @@ using LandingPage.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace LandingPage.Controllers
@@ -24,29 +25,67 @@ namespace LandingPage.Controllers
         public IActionResult Index()
         {
             DashboardViewModel viewModel = new DashboardViewModel();
-            ProfileModel profileData = repo.GetProfile();
 
-            viewModel.ProfileName = profileData.ProfileName;
-            viewModel.DescriptionBlurb = profileData.DescriptionBlurb;
+            try
+            {
+                ProfileModel profileData = repo.GetProfile();
+
+                viewModel.ProfileId = profileData.ID;
+                viewModel.ProfileName = profileData.ProfileName;
+                viewModel.DescriptionBlurb = profileData.DescriptionBlurb;
+            }
+            catch (Exception ex)
+            {
+                viewModel.ResponseMessage += $"Error loading profile data. <br />Error message: {ex.Message}";
+            }
 
             return View(viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangeProfile(DashboardViewModel viewModel)
         {
-            await fileManager.SaveProfileImage(viewModel.ProfilePicture);
+            if (viewModel.ProfilePicture != null)
+            {
+                try
+                {
+                    await fileManager.SaveProfileImage(viewModel.ProfilePicture);
+                }
+                catch (Exception ex)
+                {
+                    viewModel.ResponseMessage = $"Unable to save new profile image.<br />Error message: {ex.Message}";
+                }
+            }
 
             ProfileModel profile = new ProfileModel()
             {
+                ID = viewModel.ProfileId,
                 ProfileName = viewModel.ProfileName,
                 DescriptionBlurb = viewModel.DescriptionBlurb
             };
 
-            repo.UpdateProfile(profile);
-            await repo.SaveChangesAsync();
+            try
+            {
+                repo.UpdateProfile(profile);
+                await repo.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+                if (string.IsNullOrWhiteSpace(viewModel.ResponseMessage?.ToString()))
+                {
+                    viewModel.ResponseMessage = "Profile saved.";
+                }
+            }
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrWhiteSpace(viewModel.ResponseMessage?.ToString()))
+                {
+                    viewModel.ResponseMessage += "<br /><br />";
+                }
+
+                viewModel.ResponseMessage += $"Unable to save profile changes.<br />Error message: {ex.Message}";
+            }
+
+            return View("Index", viewModel);
         }
     }
 }
