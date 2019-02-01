@@ -37,7 +37,7 @@
                     <h2 class="blog-post-title">@post.Title</h2>
                     <p class="blog-post-metadata">@postMetaDataString</p>
                     <div class="blog-post-content">
-                        <p>@Html.Raw(StringHelper.HtmlFormattedString(post.Body))</p>
+                        <p>@Html.Raw(post.Body)</p>
                         <hr class="blog-post-endLine"/>
                     </div>
                 </div>

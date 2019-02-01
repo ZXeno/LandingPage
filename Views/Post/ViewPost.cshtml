@@ -14,8 +14,8 @@
         <h1>@Model.Title</h1>
         <p class="blog-post-metadata">@postMetaDataString <a asp-action="EditPost" asp-route-id="@Model.Id" class="btn btn-xs btn-link"><text class="glyphicon glyphicon-pencil"></text></a><br /></p>
         <hr />
-        <div>
-            <p>@Html.Raw(StringHelper.HtmlFormattedString(Model.Body))</p>
+        <div class="blog-post-content">
+            @Html.Raw(Model.Body)
         </div>
     </div>
     <div class="row">

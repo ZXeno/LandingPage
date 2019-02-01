@@ -14,7 +14,7 @@
         pageTitle = "Edit Post";
     }
 }
-
+<link href="~/lib/Trumbowyg/dist/ui/trumbowyg.min.css" rel="stylesheet" />
 <div class="container">
     <div class="row">
         <h2>@pageTitle</h2>
@@ -25,10 +25,19 @@
             <input asp-for="Title" id="titleTextBox" class="form-control" />
         </div>
         <div class="form-group">
-            <label class="" for="bodyTextBox">Body</label>
-            <textarea asp-for="Body" id="bodyTextBox" class="form-control"></textarea>
+            <label class="" for="editor">Body</label>
+            <textarea asp-for="Body" id="editor" class="form-control"></textarea>
         </div>
         <input class="btn btn-primary" type="submit" value="submit" /> &nbsp;
         <a class="btn btn-secondary" asp-action="Index">Cancel</a>
     </form>
 </div>
+
+@section Scripts {
+    <script src="~/lib/Trumbowyg/dist/trumbowyg.min.js"></script>
+    <script>
+        $('#editor').trumbowyg({
+            imageWidthModalEdit: true
+        });
+    </script>
+}

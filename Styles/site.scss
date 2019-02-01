@@ -32,10 +32,6 @@ body {
     padding: 20px;
 }
 
-#dashboard-editor-container {
-    height: 130px;
-}
-
 .profile-content {
     background-color: rgba(0, 0, 0, 0.45);
     border-radius: 6px;
@@ -56,18 +52,14 @@ body {
     overflow: hidden;
 }
 
-span {
+.zx-link {
     color: $color-textdefault;
-    font-size: 1.7em;
-}
+    text-decoration: none;
 
-p {
-    color: $color-textdefault;
-    font-size: 1em;
-}
-
-label {
-    color: $color-textdefault;
+    &:hover {
+        color: $color-metaText;
+        text-decoration: underline;
+    }
 }
 
 .profile-image {
