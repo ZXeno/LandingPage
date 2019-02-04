@@ -1,9 +1,8 @@
-﻿
-using LandingPage.DataLayer;
+﻿using LandingPage.DataLayer;
 using LandingPage.DataLayer.Repository;
 using LandingPage.Models;
+using LandingPage.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;

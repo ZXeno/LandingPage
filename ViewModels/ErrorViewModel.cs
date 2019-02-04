@@ -1,6 +1,6 @@
 using System;
 
-namespace LandingPage.Models
+namespace LandingPage.ViewModels
 {
     public class ErrorViewModel
     {

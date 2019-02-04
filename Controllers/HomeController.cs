@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using LandingPage.Models;
 using LandingPage.DataLayer.Repository;
-using Microsoft.Extensions.Configuration;
 using LandingPage.DataLayer;
+using LandingPage.ViewModels;
+using Microsoft.Extensions.Configuration;
 
 namespace LandingPage.Controllers
 {

@@ -1,13 +1,16 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LandingPage.DataLayer
 {
     public class FileManager : IFileManager
     {
+        const string wwwroot = "wwwroot";
         private readonly string uploadImagePath = string.Empty;
         private readonly string projectUploadPath = string.Empty;
         private readonly string profileImagePath = string.Empty;
@@ -22,6 +25,18 @@ namespace LandingPage.DataLayer
         public FileStream ImageStream(string image)
         {
             return new FileStream(Path.Combine(uploadImagePath, image), FileMode.Open, FileAccess.Read);
+        }
+
+        public List<string> ListUploadedImages()
+        {
+            string folderPath = Path.Combine(uploadImagePath);
+            IEnumerable<string> enumeratedFiles = Directory.EnumerateFiles(folderPath).ToList();
+            List<string> files = new List<string>();
+            foreach (string file in enumeratedFiles)
+            {
+                files.Add(Path.GetFileName(file));
+            }
+            return files;
         }
 
         public async Task<string> SaveProfileImage(IFormFile image)
@@ -50,7 +65,9 @@ namespace LandingPage.DataLayer
             }
 
             string mimeType = image.FileName.Substring(image.FileName.LastIndexOf("."));
-            string fileName = $"upld_{DateTime.Now.ToString("dd-MM-yyyy-HH-mm-")}{Guid.NewGuid()}{mimeType}";
+            string sourceFileName = image.FileName.Substring(image.FileName.LastIndexOf("\\") + 1);
+            sourceFileName = sourceFileName.Remove(sourceFileName.LastIndexOf("."));
+            string fileName = $"upld__{DateTime.Now.ToString("yyyy-MM-dd-HH-mm")}__{sourceFileName}{mimeType}";
 
             using (FileStream fileStream = new FileStream(Path.Combine(directoryPath, fileName), FileMode.Create))
             {

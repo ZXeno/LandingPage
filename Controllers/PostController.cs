@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using LandingPage.DataLayer;
 using LandingPage.DataLayer.Repository;
 using LandingPage.Models;
+using LandingPage.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LandingPage.Controllers
@@ -12,10 +15,12 @@ namespace LandingPage.Controllers
     public class PostController : Controller
     {
         private IRepository repo;
+        private IFileManager fileManager;
 
-        public PostController(IRepository repo)
+        public PostController(IRepository repo, IFileManager fileManager)
         {
             this.repo = repo;
+            this.fileManager = fileManager;
         }
 
         public IActionResult Index()
@@ -28,13 +33,18 @@ namespace LandingPage.Controllers
         [HttpGet]
         public IActionResult NewPost()
         {
-            return View("EditPost", new PostModel());
+            NewAndEditPostViewModel viewModel = new NewAndEditPostViewModel()
+            { 
+                Post = new PostModel(),
+                ExistingImageFileNames = fileManager.ListUploadedImages()
+        };
+            return View("EditPost", viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> NewPost(PostModel post)
+        public async Task<IActionResult> NewPost(NewAndEditPostViewModel viewModel)
         {
-            repo.AddPost(post);
+            repo.AddPost(viewModel.Post);
             await repo.SaveChangesAsync();
 
             return RedirectToAction("Index");
@@ -43,21 +53,20 @@ namespace LandingPage.Controllers
         [HttpGet]
         public IActionResult EditPost(int? id)
         {
-            if (id == null)
-            {
-                return View(new PostModel());
-            }
+            NewAndEditPostViewModel viewModel = new NewAndEditPostViewModel();
 
-            PostModel existingPost = repo.GetPost((int)id);
-            return View(existingPost);
+            viewModel.Post = (id == null) ? new PostModel() : repo.GetPost((int)id);
+            viewModel.ExistingImageFileNames = fileManager.ListUploadedImages();
+
+            return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPost(PostModel post)
+        public async Task<IActionResult> EditPost(NewAndEditPostViewModel viewModel)
         {
-            post.EditedDateTime = DateTime.Now;
-            repo.UpdatePost(post);
+            viewModel.Post.EditedDateTime = DateTime.Now;
+            repo.UpdatePost(viewModel.Post);
             await repo.SaveChangesAsync();
 
             return RedirectToAction("Index");
@@ -86,6 +95,21 @@ namespace LandingPage.Controllers
             }
 
             return View(repo.GetPost((int)id));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddImages(NewAndEditPostViewModel viewModel)
+        {
+            foreach (IFormFile file in viewModel.NewlySubmittedFiles)
+            {
+                await fileManager.SaveImage(file);
+            }
+
+            viewModel.ExistingImageFileNames = fileManager.ListUploadedImages();
+            viewModel.NewlySubmittedFiles.Clear();
+
+            return View("EditPost", viewModel);
         }
     }
 }

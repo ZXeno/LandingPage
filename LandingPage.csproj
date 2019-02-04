@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\assets\imgupload\" />
     <Folder Include="wwwroot\assets\projectupload\" />
     <Folder Include="wwwroot\lib\Trumbowyg\" />
   </ItemGroup>

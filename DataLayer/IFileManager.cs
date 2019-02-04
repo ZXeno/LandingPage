@@ -11,6 +11,7 @@ namespace LandingPage.DataLayer
     {
 
         FileStream ImageStream(string image);
+        List<string> ListUploadedImages();
 
         /// <summary>
         /// Uploads and replaces the existing profile image.
