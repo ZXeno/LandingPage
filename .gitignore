@@ -6,6 +6,7 @@
 # CUSTOM ENTRIES
 appsettings.json
 appsettings.Development.json
+appsettings.PPE.json
 wwwroot/assets/[Pp]rofile.png
 wwwroot/assets/[Pp]rofile.jpg
 wwwroot/assets/[Pp]rofile.jpeg
@@ -336,3 +337,4 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 /wwwroot/assets/profile.png
+

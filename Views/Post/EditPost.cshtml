@@ -50,11 +50,13 @@
                 {
                     string imagePath = $"/Image/{file}";
                     string imgTagId = $"img_{imgindex}";
+                    string imgShortName = (file.Length > 30) ? file.Substring(0, 30) + "..." : file;
 
                     <li class="list-group-item zx-li">
-                        <img id="@imgTagId" src="@imagePath" width="96" />
-                        &nbsp;&nbsp;<span>@Html.Raw(file)</span>
+                        <img id="@imgTagId" src="@imagePath" alt="@Html.Raw(file)" width="96" />
+                        &nbsp;&nbsp;<span>@Html.Raw(imgShortName)</span>
                         <input type="button" class="btn btn-info" onclick="copyImageLocationToClipboard(@imgTagId)" value="Copy Location" />
+                        <input type="button" class="btn btn-info" onclick="insertIntoPostBody(@imgTagId)" value="Insert to Post" />
                     </li>
 
                     imgindex++;
@@ -77,7 +79,15 @@
             document.body.appendChild(textArea);
             textArea.select();
             document.execCommand("copy");
+            document.body.removeChild(textArea);
             return false;
-        } 
+        }
+
+        function insertIntoPostBody(imgTagId) {
+            var textArea = document.getElementsByClassName("trumbowyg-editor")[0];
+            var imgString = "<p><a href=\"" + imgTagId.src + "\"><img src=\"" + imgTagId.src + "\" width=\"360\"  /></a></p>";
+            textArea.innerHTML += imgString;
+            return false;
+        }
     </script>
 }

@@ -28,7 +28,7 @@ namespace LandingPage
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration["LocalConnString"]));
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration["ConnString"]));
 
             services.AddTransient<IRepository, Repository>();
             services.AddTransient<IFileManager, FileManager>();
