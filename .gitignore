@@ -5,8 +5,7 @@
 
 # CUSTOM ENTRIES
 appsettings.json
-appsettings.Development.json
-appsettings.PPE.json
+appsettings.*.json
 wwwroot/assets/[Pp]rofile.png
 wwwroot/assets/[Pp]rofile.jpg
 wwwroot/assets/[Pp]rofile.jpeg

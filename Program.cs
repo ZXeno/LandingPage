@@ -15,19 +15,32 @@ namespace LandingPage
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
+            bool isPPE = false;
+            #if PPE_ENV
+            isPPE = true;
+            #endif
+
             string environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             IConfigurationBuilder configBuidler = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", false, true);
 
-            #if PPE_ENV
-            configBuidler.AddJsonFile("appsettings.PPE.json", false, true);
-            #else
-            configBuidler.AddJsonFile($"appsettings.{environment}.json", true, true);
-            #endif
+            if (isPPE)
+            {
+                configBuidler.AddJsonFile("appsettings.PPE.json", false, true);
+                environment = "Development";
+            }
+            else
+            {
+                configBuidler.AddJsonFile($"appsettings.{environment}.json", true, true);
+            }
 
 
             IConfigurationRoot configuration = configBuidler.Build();
+            if (isPPE)
+            {
+                configuration["environment"] = "PPE";
+            }
 
             return WebHost.CreateDefaultBuilder(args)
                 .UseConfiguration(configuration)
