@@ -58,10 +58,12 @@ namespace LandingPage
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DbContextOptions<AppDbContext> dbContextOptions)
         {
             if (env.IsDevelopment() || Configuration["environment"] == "PPE")
             {
+                EnsureDevDatabaseConfigured(dbContextOptions);
+
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -82,6 +84,14 @@ namespace LandingPage
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private static void EnsureDevDatabaseConfigured(DbContextOptions options)
+        {
+            using (var db = new AppDbContext(options))
+            {
+                db.Database.EnsureCreated();
+            }
         }
     }
 }
